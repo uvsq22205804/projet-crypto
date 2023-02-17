@@ -6,13 +6,14 @@
 # - - - - - - - - - - - - -
 
 """ Code de César """
+# alpha : alphabet
 
 def chiffrement(alpha, texte):
-    for i in texte.items():  # i : variable contenant l'indice de texte
-        for j in alpha.items():  # j : variable contenant l'indice de alpha
+    for i in texte:  # i : variable contenant l'indice de texte
+        for j in alpha:  # j : variable contenant l'indice de alpha
             if texte[i]==alpha[j]:
-                texte_chiffre = alpha[j]
-        pass
+                texte_chiffre = alpha[j + 3]
+
 
 def dechiffrement():
     pass
@@ -36,6 +37,7 @@ def dechiffrement():
 alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 mon_texte = "totoparapluie"
 # texte = input("Quel est votre message: ")
-
+mon_texte.lower()  # met tout le texte en minuscule pour ne pas avoir de problème avec les majuscules
+print(chiffrement(alphabet, mon_texte))
 
 
