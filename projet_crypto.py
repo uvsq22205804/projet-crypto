@@ -6,25 +6,25 @@
 # Déclaration des fonctions
 # - - - - - - - - - - - - -
 
-""" Code de César : db --> string indices must be integers"""
+""" Code de César   """
 # alpha : alphabet
 
 def chiffrement(alpha, texte, decalage):
     texte_chiffre = ""
     for i in texte:  # i : variable contenant l'indice de texte
         for j in range(len(alpha)):  # j : variable contenant l'indice de alpha
-            
             if i== alpha[j]:
+                
                 texte_chiffre += alpha[j + decalage]
-
+    
     return texte_chiffre
 
-def dechiffrement(alpha, texte, decalage):
-    for i in texte:  # i : variable contenant l'indice de texte
-        for j in alpha:  # j : variable contenant l'indice de alpha
-            if texte[i] == alpha[j]:
+def dechiffrement(alpha, texte_chiffre, decalage):
+    texte_dechiffre = ""
+    for i in texte_chiffre:  # i : variable contenant l'indice de texte
+        for j in range(len(alpha)):  # j : variable contenant l'indice de alpha
+            if i == alpha[j]:
                 texte_dechiffre += alpha[j - decalage]
-
     return texte_dechiffre
 
 
@@ -50,7 +50,10 @@ decalage = 3
 # texte = input("Quel est votre message: ")
 # decalage = int(input("Quel sera le décalage : "))
 mon_texte.lower()  # met tout le texte en minuscule pour ne pas avoir de problème avec les majuscules
-print(chiffrement(alphabet, mon_texte, decalage))
-print("finish")
+txt_chiffre = chiffrement(alphabet, mon_texte, decalage)
+print(txt_chiffre)
+txt_dechiffre = dechiffrement(alphabet, txt_chiffre, decalage)
+print (txt_dechiffre)
+
 
 
