@@ -10,9 +10,11 @@
 # alpha : alphabet
 
 def chiffrement(alpha, texte, decalage):
+    texte_chiffre = ""
     for i in texte:  # i : variable contenant l'indice de texte
-        for j in alpha:  # j : variable contenant l'indice de alpha
-            if texte[i]==alpha[j]:
+        for j in range(len(alpha)):  # j : variable contenant l'indice de alpha
+            
+            if i== alpha[j]:
                 texte_chiffre += alpha[j + decalage]
 
     return texte_chiffre
@@ -21,7 +23,7 @@ def dechiffrement(alpha, texte, decalage):
     for i in texte:  # i : variable contenant l'indice de texte
         for j in alpha:  # j : variable contenant l'indice de alpha
             if texte[i] == alpha[j]:
-                texte_dechiffre = alpha[j - decalage]
+                texte_dechiffre += alpha[j - decalage]
 
     return texte_dechiffre
 
