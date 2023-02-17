@@ -1,5 +1,10 @@
 # Emma : code de césar + scytale
 # Sawsane : chiffre de vigenère + une substitution monoalphabétique générale
+
+# - - - - - - - - - - - - -
+# Déclaration des fonctions
+# - - - - - - - - - - - - -
+
 """ Code de César """
 
 def chiffrement(alpha, texte):
@@ -11,6 +16,16 @@ def chiffrement(alpha, texte):
 
 def dechiffrement():
     pass
+
+
+""" Chiffre de Vigenère """
+# réutiliser fonction chiffrement du code de césar
+# on utilise toujours le même déclage dans le tableau du chiffre de Vigenère 
+
+
+# - - - - - - - - - -
+# Programme principal
+# - - - - - - - - - -
 
 # soit dictionnaire où on va aller chercher à quoi correspond chaque lettre, soit une liste avec tout
 # l'alphabet et pour récupérer la bonne lettre on décale l'indice de 1
@@ -24,4 +39,3 @@ mon_texte = "totoparapluie"
 
 
 
-""" Chiffre de Vigenère """
