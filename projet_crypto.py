@@ -13,7 +13,7 @@ def chiffrement(alpha, texte, decalage):
     for i in texte:  # i : variable contenant l'indice de texte
         for j in alpha:  # j : variable contenant l'indice de alpha
             if texte[i]==alpha[j]:
-                texte_chiffre = alpha[j + decalage]
+                texte_chiffre += alpha[j + decalage]
 
     return texte_chiffre
 
@@ -48,7 +48,7 @@ decalage = 3
 # texte = input("Quel est votre message: ")
 # decalage = int(input("Quel sera le décalage : "))
 mon_texte.lower()  # met tout le texte en minuscule pour ne pas avoir de problème avec les majuscules
-print(chiffrement(alphabet, mon_texte))
+print(chiffrement(alphabet, mon_texte, decalage))
 print("finish")
 
 
