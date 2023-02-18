@@ -6,11 +6,12 @@
 # Déclaration des fonctions
 # - - - - - - - - - - - - -
 
-""" Code de César   """
+""" Code de César : db --> index > fin de la liste (=list index out of range) """
 # alpha : alphabet
 
 def chiffrement(alpha, texte, decalage):
     texte_chiffre = ""
+    # qqch:
     for i in texte:  # i : variable contenant l'indice de texte
         for j in range(len(alpha)):  # j : variable contenant l'indice de alpha
             if i== alpha[j]:
@@ -21,6 +22,7 @@ def chiffrement(alpha, texte, decalage):
 
 def dechiffrement(alpha, texte_chiffre, decalage):
     texte_dechiffre = ""
+    # qqch
     for i in texte_chiffre:  # i : variable contenant l'indice de texte
         for j in range(len(alpha)):  # j : variable contenant l'indice de alpha
             if i == alpha[j]:
@@ -45,10 +47,10 @@ def dechiffrement(alpha, texte_chiffre, decalage):
 
 
 alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-mon_texte = "totoparapluie"
-decalage = 3
-# texte = input("Quel est votre message: ")
-# decalage = int(input("Quel sera le décalage : "))
+# mon_texte = "totoparapluie"
+# decalage = 3
+mon_texte = input("Quel est votre message: ")
+decalage = int(input("Quel sera le décalage : "))
 mon_texte.lower()  # met tout le texte en minuscule pour ne pas avoir de problème avec les majuscules
 txt_chiffre = chiffrement(alphabet, mon_texte, decalage)
 print(txt_chiffre)
