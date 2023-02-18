@@ -47,10 +47,10 @@ def dechiffrement(alpha, texte_chiffre, decalage):
 
 
 alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-# mon_texte = "totoparapluie"
-# decalage = 3
-mon_texte = input("Quel est votre message: ")
-decalage = int(input("Quel sera le décalage : "))
+mon_texte = "totoparapluie"
+decalage = 3
+# mon_texte = input("Quel est votre message: ")
+# decalage = int(input("Quel sera le décalage : "))
 mon_texte.lower()  # met tout le texte en minuscule pour ne pas avoir de problème avec les majuscules
 txt_chiffre = chiffrement(alphabet, mon_texte, decalage)
 print(txt_chiffre)
