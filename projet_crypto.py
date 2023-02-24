@@ -13,8 +13,8 @@ def chiffrement(alpha, texte, decalage):
     texte_chiffre = ""
     # qqch:
     for i in texte:  # i : variable contenant l'indice de texte
-        for j in range(len(alpha)):  # j : variable contenant l'indice de alpha
-            if i== alpha[j]:
+        for j in range(len(alpha)%26):  # j : variable contenant l'indice de alpha
+            if i == alpha[j]:
                 
                 texte_chiffre += alpha[j + decalage]
     
@@ -54,8 +54,10 @@ decalage = 3
 mon_texte.lower()  # met tout le texte en minuscule pour ne pas avoir de problème avec les majuscules
 txt_chiffre = chiffrement(alphabet, mon_texte, decalage)
 print(txt_chiffre)
+"""
 txt_dechiffre = dechiffrement(alphabet, txt_chiffre, decalage)
 print (txt_dechiffre)
+"""
 
 
 
