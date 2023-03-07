@@ -2,7 +2,7 @@
 ### Groupe : L1BI-TD02
 Iliane IDRI--TURREL,
 Emma CLUZET,
-Sawsane El Aouni
+Sawsane EL AOUNI
 
 ## L'url de dépôt du projet
 
