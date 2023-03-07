@@ -54,10 +54,10 @@ decalage = 3
 mon_texte.lower()  # met tout le texte en minuscule pour ne pas avoir de problème avec les majuscules
 txt_chiffre = chiffrement(alphabet, mon_texte, decalage)
 print(txt_chiffre)
-"""
+
 txt_dechiffre = dechiffrement(alphabet, txt_chiffre, decalage)
-print (txt_dechiffre)
-"""
+print(txt_dechiffre)
+
 
 
 
