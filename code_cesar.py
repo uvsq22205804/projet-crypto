@@ -13,8 +13,8 @@ def chiffrement(texte, decalage, alphabet):
 mon_texte = "totoparapluie"
 mon_texte.lower()
 decalage = 3
-chiffrement=chiffrement(mon_texte, decalage, [string.ascii_lowercase])
+chiffrement = chiffrement(mon_texte, decalage, [string.ascii_lowercase])
 print(chiffrement)
-"""
+
 dechiffrement=chiffrement(chiffrement, decalage, [string.ascii_lowercase])
-print(chiffrement)"""
+print(chiffrement)
