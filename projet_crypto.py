@@ -6,27 +6,28 @@
 # Déclaration des fonctions
 # - - - - - - - - - - - - -
 
-""" Code de César : db --> index > fin de la liste (=list index out of range) """
-# alpha : alphabet
+""" Code de César : """
 
-def chiffrement(alpha, texte, decalage):
-    texte_chiffre = ""
-    # qqch:
-    for i in texte:  # i : variable contenant l'indice de texte
-        for j in range(len(alpha)%26):  # j : variable contenant l'indice de alpha
-            if i == alpha[j]:
-                
-                texte_chiffre += alpha[j + decalage]
-    
+
+def chiffrement_cesar(texte, key, alphabet):
+    texte_chiffre = ''
+    for lettre in texte:
+        occurence = alphabet.find(lettre)  # stocke l'occurence des lettres dans le texte
+        i = occurence + key  # i correspond à l'indice de la lettre chiffrée
+        if i > 25:  # si i dépasse la taille de l'alphabet 
+            i = i % 26  # on calcule le reste de la division et on la stocke dans i
+        texte_chiffre += alphabet[i]  # on ajoute a la variable texte_chiffre la lettre avec l'indice décalé
     return texte_chiffre
 
-def dechiffrement(alpha, texte_chiffre, decalage):
-    texte_dechiffre = ""
-    # qqch
-    for i in texte_chiffre:  # i : variable contenant l'indice de texte
-        for j in range(len(alpha)):  # j : variable contenant l'indice de alpha
-            if i == alpha[j]:
-                texte_dechiffre += alpha[j - decalage]
+
+def dechiffrement_cesar(texte, key, alphabet):
+    texte_dechiffre = ''
+    for lettre in texte:
+        occurence = alphabet.find(lettre)  # stocke l'occurence des lettres dans le texte
+        i = occurence - key  # i correspond à l'indice de la lettre chiffrée
+        if i > 25:  # si i dépasse la taille de l'alphabet 
+            i = i % 26  # on calcule le reste de la division et on la stocke dans i
+        texte_dechiffre += alphabet[i]  # on ajoute a la variable texte_chiffre la lettre avec l'indice décalé
     return texte_dechiffre
 
 
@@ -43,21 +44,18 @@ def dechiffrement(alpha, texte_chiffre, decalage):
 # Programme principal
 # - - - - - - - - - -
 
-# une liste avec alphabet et on pourra choisir le décalage
+# ----- Code de César -----
 
+alphabet = "abcdefghijklmnopqrstuvwxyz"
+message = input("Quel est votre message ? ")
+cle = int(input("Quel est la clé de chiffrement de votre message? "))
+message.lower()  # met tout le texte en minuscule pour ne pas avoir de problème avec les majuscules
+message_chiffre = chiffrement_cesar(message, cle, alphabet)
+print("Le message chiffré est :", message_chiffre)
+message_dechiffre = dechiffrement_cesar(message_chiffre, cle, alphabet)
+print("Le message déchiffré est:", message_dechiffre)
 
-alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-mon_texte = "totoparapluie"
-decalage = 3
-# mon_texte = input("Quel est votre message: ")
-# decalage = int(input("Quel sera le décalage : "))
-mon_texte.lower()  # met tout le texte en minuscule pour ne pas avoir de problème avec les majuscules
-txt_chiffre = chiffrement(alphabet, mon_texte, decalage)
-print(txt_chiffre)
-
-txt_dechiffre = dechiffrement(alphabet, txt_chiffre, decalage)
-print(txt_dechiffre)
-
+# ----- 
 
 
 
