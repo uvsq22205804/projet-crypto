@@ -18,5 +18,5 @@ Pour cela, il va falloir manipuler des chaînes de caractères, on veillera à l
 
 Puis nous avons une fonction qui permet de retrouver le message crypté par les fonctions précédentes sans connaître la clé de déchiffrement. Il va donc tester toutes les possibilités et l'utilisateur pourra déterminer quel est le résultat le plus probant.
 
-###Précisions
+### Précisions
 Iliane aillant des problèmes avec son vscode. Emma fait les commit + push à sa place.
