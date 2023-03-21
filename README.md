@@ -17,3 +17,6 @@ De plus à partir d'un texte chiffré, sans connaissance de la clef, le programm
 Pour cela, il va falloir manipuler des chaînes de caractères, on veillera à laisser la possibilité à l’utilisateur de supprimer les espaces ou les caractères spéciaux, chiffrer un texte écrit dans un fichier .txt qui se situerait n’importe où dans l’ordinateur, ou généraliser le code de César ou le chiffre de Vigenère à des alphabets plus grands
 
 Puis nous avons une fonction qui permet de retrouver le message crypté par les fonctions précédentes sans connaître la clé de déchiffrement. Il va donc tester toutes les possibilités et l'utilisateur pourra déterminer quel est le résultat le plus probant.
+
+###Précisions
+Iliane aillant des problèmes avec son vscode. Emma fait les commit + push à sa place.
