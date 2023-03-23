@@ -1,22 +1,29 @@
 def chiffre_vigenere(message, cle):
-    #Créer le tableau. Chaque case du tableau = la lettre utilisée pour chiffrer une autre lettre.
+    # Créer le tableau. Chaque case du tableau = la lettre utilisée pour chiffrer une autre lettre.
     tableau = []
-    for i in range(26) : #les lignes du tableau = les lettres de la clé
+    for i in range(26) :  # les lignes du tableau = les lettres de la clé
         tableau.append([])
-        for j in range(26): #les colonnes du tableau = les lettres du message
-            tableau[i].append(chr((i+j) % 26 + 65)) #Calcule l'indice de la lettre chiffrée (indice entre 0 et 25, 65 = A en ASCII)
+        for j in range(26):  # les colonnes du tableau = les lettres du message
+            tableau[i].append(chr((i+j) % 26 + 65))  # Calcule l'indice de la lettre chiffrée (indice entre 0 et 25, 65 = A en ASCII)
 
-    #Initialiser le texte chiffré
-    chiffre = "" #variable qui stockera le message chiffré
+    # Initialiser le texte chiffré
+    chiffre = ""  # variable qui stockera le message chiffré
 
-    #Chiffrer le message
+    # Chiffrer le message
     for i in range(len(message)):
         lettre_message = message[i]
-        lettre_cle = cle[i % len(cle)]
+        lettre_cle = cle[i % len(cle)]  # debug object of type 'int' has no len()
         ligne = ord(lettre_cle.upper()) - 65
         colonne = ord(lettre_message.upper()) - 65
         chiffre += tableau[ligne][colonne]
 
     return chiffre
 
-#Chiffrement sans le code de César
+# Chiffrement sans le code de César
+
+# - - - - - - - - - - - - - -
+# Programme principal - test
+# - - - - - - - - - - - - - -
+
+test = "ornithorynque"
+print(chiffre_vigenere(test,2))
