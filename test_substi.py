@@ -1,22 +1,53 @@
-import string
+# Code d'iliane
 
-def codage_substitution(subst, chaine, decode=False):
-    """Crypte la chaîne en utilisant la substitution "subst".
-La chaîne est convertie en majuscule d'abord, et seul l'ascii est traité.
-La substitution est donnée par la liste des lettres substituées. Par exemple,
-pour un décalage de 3 lettres, il suffit de donner la substitution
-'DEFGHIJKLMNOPQRSTUVWXYZABC'. """
-    alphabet = string.ascii_uppercase	# liste de toutes les lettres ASCII en majuscules
-    chaine = chaine.upper()
-    resultat = ""
-    for c in chaine:
-        n = alphabet.find(c)  	# on cherche l'indice de l'occurrence de c dans l'alphabet
-        if n < 0:   			# si le caractère c n'est pas dans l'alphabet
-            resultat = resultat + c 	# on le laisse tels quel
-        else:       # si le caractère c est dans l'alphabet, on le remplace
-            resultat = resultat + subst[n] # par le caractère qui a la même place dans la substitution 
-    return resultat
+import random
 
-chaine = "jnerijqgsoenfoekefn"
-code = codage_substitution('DEFGHIJKLMNOPQRSTUVWXYZABC', chaine)
-print("blabla")
+alphabet = "abcdefghijklmnopqrstuvwxyz"
+
+# Générer une clé de substitution aléatoire
+substitution_key = list(alphabet)
+random.shuffle(substitution_key)
+substitution_key = "".join(substitution_key)
+
+def encrypt(message, key):
+    """
+    Cette fonction prend un message en clair et une clé de substitution
+    et retourne le message chiffré avec la substitution monoalphabétique.
+    """
+    encrypted_message = ""
+    for char in message:
+        if char.lower() in alphabet:
+            index = alphabet.index(char.lower())
+            if char.isupper():
+                encrypted_message += key[index].upper()
+            else:
+                encrypted_message += key[index]
+        else:
+            encrypted_message += char
+    return encrypted_message
+
+def decrypt(message, key):
+    """
+    Cette fonction prend un message chiffré avec une substitution monoalphabétique
+    et la clé de substitution utilisée et retourne le message déchiffré en clair.
+    """
+    decrypted_message = ""
+    for char in message:
+        if char.lower() in key:
+            index = key.index(char.lower())
+            if char.isupper():
+                decrypted_message += alphabet[index].upper()
+            else:
+                decrypted_message += alphabet[index]
+        else:
+            decrypted_message += char
+    return decrypted_message
+
+message = "Bonjour, comment ça va ?"
+print("Message en clair :", message)
+
+encrypted_message = encrypt(message, substitution_key)
+print("Message chiffré :", encrypted_message)
+
+decrypted_message = decrypt(encrypted_message, substitution_key)
+print("Message déchiffré :", decrypted_message)
