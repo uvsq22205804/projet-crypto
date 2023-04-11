@@ -47,3 +47,6 @@ def vigenere(message, key): #Deuxième Essai Code Vigenère
         chiffre += tableau[ligne][colonne]    #accès à la table et index de la lettre + ajout de la lettre à la variable ‘’chiffre’’
 
     return chiffre
+
+
+print(vigenere("totoparapluie", 8))

@@ -1,4 +1,4 @@
-# Code d'iliane
+# Code d'iliane fait avec ChatGPT
 
 import random
 

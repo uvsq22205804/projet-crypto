@@ -17,3 +17,9 @@ def crypte_texte(texte, nb_colonnes, enlever_espaces=False, enlever_caracteres_s
         for j in range(nb_rangees): #parcourt chaque rangée de la scytale
             texte_crypte += texte[j * nb_colonnes + i] #Calcule l'index du caractère à ajouter à la chaîne cryptée
     return texte_crypte
+
+"""TEST CONCLUANT"""
+mon_texte=supprimer_caracteres_speciaux("j'aime les patates")
+print(mon_texte)
+cryptage=crypte_texte(mon_texte, 5)
+print(cryptage)
