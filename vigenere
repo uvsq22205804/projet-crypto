@@ -54,6 +54,7 @@ alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÀÂÄÆÇÉÈÊËÎÏÔŒÙÛÜŸ"
 cle = "MERCREDI"
 message = "totoparapluie"
 
+#Exemple d'utiisation
 message_chiffre = chiffrement_vigenere(message, cle, alphabet, supprimer_espaces=True)
 print("Message chiffré :")
 print(message_chiffre)
