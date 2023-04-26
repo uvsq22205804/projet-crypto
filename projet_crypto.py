@@ -35,6 +35,32 @@ def dechiffrement_cesar(texte, key, alphabet):
 # réutiliser fonction chiffrement du code de césar
 # on utilise toujours le même déclage dans le tableau du chiffre de Vigenère 
 
+
+def chiffrement_vigenere(message, key, alphabet, supprimer_espaces=True):
+    if supprimer_espaces:
+        message = ''.join(message.split()) # Supprime les espaces dans le message
+
+    # Créer le tableau de substitution
+    tableau = []
+    for i in range(len(alphabet)):
+        tableau.append([])
+        for j in range(len(alphabet)):
+            position = (j + i) % len(alphabet)
+            tableau[i].append(alphabet[position])
+
+    # Initialiser le texte chiffré
+    chiffre = ""
+
+    # Chiffrer le message
+    for i in range(len(message)):
+        lettre_message = message[i]
+        position_lettre = alphabet.index(lettre_message.upper())
+        lettre_cle = key[i % len(key)]
+        position_cle = alphabet.index(lettre_cle.upper())
+        chiffre += tableau[position_cle][position_lettre]
+
+    return chiffre
+
 def dechiffrement_vigenere(chiffre, key, alphabet, supprimer_espaces=True):
     if supprimer_espaces:
         chiffre = ''.join(chiffre.split()) # Supprime les espaces dans le message chiffré
