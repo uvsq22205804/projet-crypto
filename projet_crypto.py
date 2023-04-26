@@ -35,6 +35,33 @@ def dechiffrement_cesar(texte, key, alphabet):
 # réutiliser fonction chiffrement du code de césar
 # on utilise toujours le même déclage dans le tableau du chiffre de Vigenère 
 
+def dechiffrement_vigenere(chiffre, key, alphabet, supprimer_espaces=True):
+    if supprimer_espaces:
+        chiffre = ''.join(chiffre.split()) # Supprime les espaces dans le message chiffré
+
+    # Créer le tableau de substitution
+    tableau = []
+    for i in range(len(alphabet)):
+        tableau.append([])
+        for j in range(len(alphabet)):
+            position = (j + i) % len(alphabet)
+            tableau[i].append(alphabet[position])
+
+    # Initialiser le texte déchiffré
+    message = ""
+
+    # Déchiffrer le message
+    for i in range(len(chiffre)):
+        lettre_chiffre = chiffre[i]
+        position_cle = alphabet.index(key[i % len(key)].upper())
+        for j in range(len(alphabet)):
+            if tableau[position_cle][j] == lettre_chiffre.upper():
+                message += alphabet[j]
+
+    return message
+
+
+
 """Scytale"""
 
 """substitution monoalphabetique générale"""
