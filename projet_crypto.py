@@ -2,36 +2,6 @@
 # Sawsane : chiffre de vigenère 
 # Iliane : une substitution monoalphabétique générale
 
-# - - - - - - - - - - -
-# Import de librairies
-# - - - - - - - - - - -
-
-import tkinter as tk
-import random
-from os.path import isfile, realpath, dirname
-
-# -------------------
-# Création de fenêtre
-# -------------------
-
-root = tk.Tk()
-root.title("Cryptanalyse de chiffrements")
-
-cle = tk.Entry(root)
-cle.grid(row= 1, column= 1)
-
-label_cle = tk.Label(root, text= "Entrez votre clé de chiffrement (nombre)")
-label_cle.grid(row= 1, column= 0)
-
-message_chiffre = tk.Entry(root)
-message_chiffre.grid(row= 4, column= 1)
-
-label_message_chiffre = tk.Label(root, text= "Message chiffré")
-label_message_chiffre.grid(row= 4, column= 0)
-
-chargement = tk.Entry(root)
-chargement.grid(row= 1,column= 1)
-
 # - - - - - - - - - - - - -
 # Déclaration des fonctions
 # - - - - - - - - - - - - -
@@ -144,8 +114,6 @@ def dechiffrement_vigenere(chiffre, key, alphabet, supprimer_espaces=True):
 """Scytale"""
 
 """substitution monoalphabetique générale"""
-
-
 def substitution_cle(alphabet):  # fonction qui permets de générer une clé de substitution aléatoire
     substitution_key=list(alphabet)  # crée une copie de la liste d'origine pour servir de clé de substitution
     random.shuffle(substitution_key)  # mélange la liste pour obtenir une clé aléatoire
@@ -154,6 +122,8 @@ def substitution_cle(alphabet):  # fonction qui permets de générer une clé de
         res += char  # ajoute le caractère à la chaîne de résultat
     return res  # renvoie la clé de substitution sous forme de chaîne de caractères
 
+key = substitution_cle(alphabet)
+ 
 
 def encrypt(lignes, substitution_key):  # fonction qui permets de crypter le message d'origine
     encrypted_message = ""  # variable vide ou sera stocker le message crypté
@@ -169,11 +139,11 @@ def encrypt(lignes, substitution_key):  # fonction qui permets de crypter le mes
     return encrypted_message  # renvoie le message chiffré
 
 
-def decrypt(lignes, key):
+def decrypt(lignes, clef):
     decrypted_message = ""  # initialise une chaîne vide pour stocker le message déchiffré
     for char in lignes:  # parcourt chaque caractère dans le message chiffré
-        if char.lower() in key:  # vérifie si le caractère est alphabétique (en minuscule) et dans la clé
-            index = key.index(char.lower())  # récupère l'index du caractère dans la clé de substitution
+        if char.lower() in clef:  # vérifie si le caractère est alphabétique (en minuscule) et dans la clé
+            index = clef.index(char.lower())  # récupère l'index du caractère dans la clé de substitution
             if char.isupper():  # si le caractère est en majuscule,
                 decrypted_message += alphabet[index].upper()  # ajoute la lettre d'origine correspondante en majuscule                                                  
             else:  # sinon, le caractère est en minuscule
