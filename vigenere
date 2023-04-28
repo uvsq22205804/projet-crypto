@@ -19,7 +19,7 @@ def chiffrement_vigenere(message, key, alphabet, supprimer_espaces=True):
         position_lettre = alphabet.index(lettre_message.upper()) #obtient la position de la lettre dans l'alphabet
         lettre_cle = key[i % len(key)] #récuper la lettre de a clé correspondant à la position actuelle dans le message
         position_cle = alphabet.index(lettre_cle.upper()) #obtient la positon de la lettre de la clé dans l'alphabet
-        chiffre += tableau[position_cle][position_lettre] #ajoute la lettre chifrré au mesg chiffré
+        chiffre += Tableau[position_cle][position_lettre] #ajoute la lettre chifrré au mesg chiffré
 
     return chiffre
 

@@ -90,7 +90,7 @@ def dechiffrement_cesar(texte, key, alphabet):
 # on utilise toujours le même déclage dans le tableau du chiffre de Vigenère 
 
 
-def chiffrement_vigenere(message, cle, alphabet, supprimer_espaces=True):
+def chiffrement_vigenere(message, key, alphabet, supprimer_espaces=True):
     if supprimer_espaces:
         message = ''.join(message.split()) # Supprime les espaces dans le message
 
@@ -107,11 +107,12 @@ def chiffrement_vigenere(message, cle, alphabet, supprimer_espaces=True):
 
     # Chiffrer le message
     for i in range(len(message)):
-        lettre_message = message[i]
-        position_lettre = alphabet.index(lettre_message.upper())
-        lettre_cle = cle[i % len(cle)]
-        position_cle = alphabet.index(lettre_cle.upper())
-        chiffre += tableau[position_cle][position_lettre]
+        lettre_message = message[i] #récupère la lettre du msg correspondant  la position actuelle
+        position_lettre = alphabet.index(lettre_message.upper()) #obtient la position de la lettre dans l'alphabet
+        lettre_cle = key[i % len(key)] #récuper la lettre de a clé correspondant à la position actuelle dans le message
+        position_cle = alphabet.index(lettre_cle.upper()) #obtient la positon de la lettre de la clé dans l'alphabet
+        chiffre += tableau[position_cle][position_lettre] #ajoute la lettre chifrré au mesg chiffré
+
 
     return chiffre
 
@@ -201,6 +202,64 @@ def casser_cesar(texte_dechiffre):
                 déchiffré += c  # ajoute le caractère tel quel au texte déchiffré
         print(f"Clé {key}: {dechiffré}")  # affiche le texte déchiffré pour la clé courante
         déchiffré = ""  # réinitialise le texte déchiffré pour la prochaine clé
+
+
+
+# - - - - -
+#Cryptanalyse VIGENÈRE
+# - - - - - 
+
+def frequences(message):
+    
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" 
+    occurrences = {} #dictionnaire pour stocker les occurrence de chaque lettre du message
+    l = []
+    for lettre in alphabet:
+        occurrences[lettre]=0
+
+
+    for lettre in message.upper(): #calculer les occurrences
+        if lettre in occurrences:
+            occurrences[lettre]+=1
+
+    for lettre in alphabet:
+        l.append(occurrences[lettre])
+
+    return l
+        
+
+
+def indice_de_coincidence(hist): #calcule indice d'un texte avec histogramme
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    indiceC = 0
+    nombre_char = sum(hist)
+    if nombre_char > 0: #au moins 2 char dans le texte
+        for i in hist : 
+            num = i * (i - 1) #fréq i * le nbr de paires identiques dans le texte
+            denom = nombre_char * (nombre_char - 1) #nbr total de char * le nbr total de paires de char différentes
+            indiceC += num / denom
+    return indiceC
+
+
+
+def longueur_cle(chiffre):
+    for k in range(1,21): #logueur supposée de la clé
+        somme_indices = 0
+        for l in range(k): #divise en k colonnes et calcule indice C pour chaque colonne
+            texte = ""
+            for i in range(l, len(chiffre), k):
+                texte += chiffre[i]
+            hist = frequences(texte)
+            somme_indices += indice_de_coincidence(hist)
+    indice_moyen = somme_indices / k #calcule indice moyen
+    if indice_moyen > 0.06: #valeur typique pour l'indice de coincidence en français
+        return k
+    return 0 #si la clé n'a pas pu être determinée
+
+
+
+
+# Cryotanalyse vigenère non terminée
 
 
 # - - - - - - - - - -
