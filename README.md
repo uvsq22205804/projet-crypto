@@ -27,7 +27,8 @@ Puis pour dechiffré le message choisi, le programme traite aussi dans un premie
 
 ## Substitution monoalphabétique generale
 
-Une substitution monoalphabétique est un cryptage issus d'une clé aléatoire unique. Dans notre cas nous avons donc dans un premier temps une fonction qui génère une clé aléatoire, en mélangeant, avec la methode "shuffle()" une liste copie de l'alphabet. Une fois la clé obtenue on peut commencer un coder un message. La fonction qui encrypte, va tout d'abord parcourir l'entièreté des caractéres du texte et voit si ils font parti de l'aphabet et si ils sont en majuscules ou en minuscules. Ensuite on récupère son indice afin de trouver sa substitution dans la clé et on le remplace. Si le caractère n'est pas alphabétique le code le met dans sa forme originale dans le nouveau texte.
+Une substitution monoalphabétique est un cryptage issus d'une clé aléatoire unique. Dans notre cas nous avons donc dans un premier temps une fonction qui génère une clé aléatoire, en mélangeant, avec la methode "shuffle()" une liste copie de l'alphabet. Une fois la clé obtenue on peut commencer un coder un message. La fonction qui encrypte, va tout d'abord parcourir l'entièreté des caractéres du texte et voit si ils font parti de l'aphabet et si ils sont en majuscules ou en minuscules. Ensuite on récupère son indice afin de trouver sa substitution dans la clé et on le remplace. Si le caractère n'est pas alphabétique le code le met dans sa forme originale dans le nouveau texte. Pour le déchiffrement il faut faire la meme chose mais cette fois ci en prenant l'indice du caractère de la clé d'abord, pour ensuite trouvé quel caractère il substitue.
+
 
 ### Précisions
 Iliane aillant des problèmes avec son vscode. Emma fait les commit + push à sa place.
