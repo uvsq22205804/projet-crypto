@@ -1,0 +1,51 @@
+def frequences(message):
+    
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" 
+    occurrences = {} #dictionnaire pour stocker les occurrence de chaque lettre du message
+    l = []
+    for lettre in alphabet:
+        occurrences[lettre]=0
+
+
+    for lettre in message.upper(): #calculer les occurrences
+        if lettre in occurrences:
+            occurrences[lettre]+=1
+
+    for lettre in alphabet:
+        l.append(occurrences[lettre])
+
+    return l
+        
+
+
+def indice_de_coincidence(hist): #calcule indice d'un texte avec histogramme
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    indiceC = 0
+    nombre_char = sum(hist)
+    if nombre_char > 0: #au moins 2 char dans le texte
+        for i in hist : 
+            num = i * (i - 1) #fréq i * le nbr de paires identiques dans le texte
+            denom = nombre_char * (nombre_char - 1) #nbr total de char * le nbr total de paires de char différentes
+            indiceC += num / denom
+    return indiceC
+
+
+
+def longueur_cle(chiffre):
+    for k in range(1,21): #logueur supposée de la clé
+        somme_indices = 0
+        for l in range(k): #divise en k colonnes et calcule indice C pour chaque colonne
+            texte = ""
+            for i in range(l, len(chiffre), k):
+                texte += chiffre[i]
+            hist = frequences(texte)
+            somme_indices += indice_de_coincidence(hist)
+    indice_moyen = somme_indices / k #calcule indice moyen
+    if indice_moyen > 0.06: #valeur typique pour l'indice de coincidence en français
+        return k
+    return 0 #si la clé n'a pas pu être determinée
+
+
+
+
+#Cryotanalyse vigenère non terminée

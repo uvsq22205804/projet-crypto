@@ -18,5 +18,29 @@ Pour cela, il va falloir manipuler des chaînes de caractères, on veillera à l
 
 Puis nous avons une fonction qui permet de retrouver le message crypté par les fonctions précédentes sans connaître la clé de déchiffrement. Il va donc tester toutes les possibilités et l'utilisateur pourra déterminer quel est le résultat le plus probant.
 
+
+### Le code César
+
+Le  code de cesar est issu d'un décallage de 3 lettres dans l'alphabet pour créer un clé de chiffrage. Ici le code traite d'abord les espace puis dans un second temps il recupere l'indice de la lettre pour la stocker dans une variable i en y ajoutant le decalage. Si ce dernier est superieur a 25, on calcul le reste de la division que l'on stocke dans "i". On ajoute a la variable texte_chiffre, la lettre avec son indice décalé.
+Puis pour dechiffré le message choisi, le programme traite aussi dans un premier temps les espaces puis les lettre en cette fois si soustrayant le decalage. Encore une fois, si ce dernier est superieur a 25, on calcul le reste de la division que l'on stocke dans "i". On ajoute a la variable texte_chiffre, la lettre avec son indice décalé.
+
+
+### Substitution monoalphabétique generale
+
+Une substitution monoalphabétique est un cryptage issus d'une clé aléatoire unique. Dans notre cas nous avons donc dans un premier temps une fonction qui génère une clé aléatoire, en mélangeant, avec la methode "shuffle()" une liste copie de l'alphabet. Une fois la clé obtenue on peut commencer un coder un message. La fonction qui encrypte, va tout d'abord parcourir l'entièreté des caractéres du texte et voit si ils font parti de l'aphabet et si ils sont en majuscules ou en minuscules. Ensuite on récupère son indice afin de trouver sa substitution dans la clé et on le remplace. Si le caractère n'est pas alphabétique le code le met dans sa forme originale dans le nouveau texte. Pour le déchiffrement il faut faire la meme chose mais cette fois ci en prenant l'indice du caractère de la clé d'abord, pour ensuite trouvé quel caractère il substitue.
+
+
+### Chiffre de Vigenère
+
+Le chiffrement de Vigenère est une méthode de cryptage par subtitution polyalphabétique. Elle utilise la table de de vigenère qui est créée en décalant à chaque ligne, chaque lettre vers la droite d'une position, jusqu'à ce que l'alphabet complet soit écrit.
+Ainsi chaque ligne contient une permutation complète et différente de l'alphabet.
+Pour déchiffrer un message, il faut connaitre la clé utilisée qui déchiffre à l'aide du tableau, en trouvant la lettre correspondante dans la colonne correspondante à la lettre de la clé. Pour cela on cherche la lettre de la clé sur la première ligne du tableau, puis on suit la colonne verticale jusqu'a la lettre chiffrée. La lettre correspondante dans la ligne de la lettre de la clé est la lettre déchiffré.
+Si la clé est trop courte, on la répète le nombre de fois que nécessaire.
+
+### Limites
+
+Le sujet n'étant pas des plus clair a ce sujet nous avons pris la decision assez tard de crée une fenetre d'affichage Tkinter, elle existe mais est des plus basique. Ce qui concerne aussi les cryptanalyse, nous avons deux fonctions (une pour césar et une en fréquence). Elles sont indépendantes du code et l'une de l'autre et nous n'avons pas eu le temps de les tester sur le code complet.
+
 ### Précisions
 Iliane aillant des problèmes avec son vscode. Emma fait les commit + push à sa place.
+
