@@ -358,3 +358,9 @@ bouton_sauvegarder = tk.Button(root,text= "Sauvegarder le texte", command = lamb
 bouton_sauvegarder.grid(row=0, column=2)
 
 root.mainloop()
+
+# - - - -
+# Sources
+# - - - -
+
+# Certaines parties code la cryptanalyse de césar ont été fait a l'aide de l'IA chat GPT
