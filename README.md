@@ -37,6 +37,10 @@ Ainsi chaque ligne contient une permutation complète et différente de l'alphab
 Pour déchiffrer un message, il faut connaitre la clé utilisée qui déchiffre à l'aide du tableau, en trouvant la lettre correspondante dans la colonne correspondante à la lettre de la clé. Pour cela on cherche la lettre de la clé sur la première ligne du tableau, puis on suit la colonne verticale jusqu'a la lettre chiffrée. La lettre correspondante dans la ligne de la lettre de la clé est la lettre déchiffré.
 Si la clé est trop courte, on la répète le nombre de fois que nécessaire.
 
+### Limites
+
+Le sujet n'étant pas des plus clair a ce sujet nous avons pris la decision assez tard de crée une fenetre d'affichage Tkinter, elle existe mais est des plus basique. Ce qui concerne aussi les cryptanalyse, nous avons deux fonctions (une pour césar et une en fréquence). Elles sont indépendantes du code et l'une de l'autre et nous n'avons pas eu le temps de les tester sur le code complet.
+
 ### Précisions
 Iliane aillant des problèmes avec son vscode. Emma fait les commit + push à sa place.
 
