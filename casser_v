@@ -42,5 +42,5 @@ def longueur_cle(chiffre):
     indice_moyen = somme_indices / k #calcule indice moyen
     if indice_moyen > 0.06: #valeur typique pour l'indice de coincidence en français
         return k
-    return 0 #si la clé n'a pas pu être determinée
+    return 0 #la clé n'a pas pu être determinée
 
