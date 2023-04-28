@@ -208,6 +208,11 @@ def casser_cesar(texte_dechiffre):
 # - - - - -
 #Cryptanalyse VIGENÈRE
 # - - - - - 
+#L'indice de coincidence permet de trouver la longueur probable de la clé : des séquences chiffrées redondantes peuvent indiquer qu'elles chiffrent avec la même partie de la clé.
+#Avec le nombre de lettres qui séparent deux séquences identiques, on peut déduire que la longeure de la clé correspond à un diviseur de ce nombre.
+#L'indice de fréquence permet de savoir le nombre d'occurence de chaque lettre, et nous permet d'estimer la longueur de la clé en identifiant les blocs qui ont été chiffré avec la même lettre de la clé.
+#Cette méthode est notamment efficace sur les longs textes.
+
 
 def frequences(message):
     
