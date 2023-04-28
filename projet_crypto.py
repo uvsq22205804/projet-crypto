@@ -9,6 +9,7 @@
 import tkinter as tk
 import random
 from os.path import isfile, realpath, dirname
+import re
 
 # -------------------
 # Création de fenêtre
@@ -30,7 +31,7 @@ label_message_chiffre = tk.Label(root, text= "Message chiffré")
 label_message_chiffre.grid(row= 4, column= 0)
 
 chargement = tk.Entry(root)
-chargement.grid(row= 1,column= 1)
+chargement.grid(row= 0,column= 1)
 
 # - - - - - - - - - - - - -
 # Déclaration des fonctions
@@ -38,13 +39,18 @@ chargement.grid(row= 1,column= 1)
 
 
 def charger_fichier(nom_du_fichier):
+  global text_global
+  text_global=""
   mon_chemin = realpath(nom_du_fichier)  # récupère le chemin du fichier
   with open(mon_chemin,"r") as f:
-    return f.readlines()
+    lignes = f.readlines()
+    for ligne in lignes:
+        text_global += ligne
+    return text_global
   
 
 def sauvegarde(file_name, text= ''):
-    if isfile(mon_chemin):
+    if isfile(file_name):
         mon_chemin = realpath(file_name)
     else :
         mon_chemin = realpath(__file__)
@@ -58,31 +64,35 @@ def sauvegarde(file_name, text= ''):
 
 
 def chiffrement_cesar(texte, key, alphabet):
-    texte_chiffre = ''
+    global text_global
+    text_global = ''
     for lettre in texte:
         if lettre == " ":
-            texte_chiffre += " "
+            text_global += " "
         else:
             occurence = alphabet.find(lettre)  # stocke l'occurence des lettres dans le texte
-            i = occurence + key  # i correspond à l'indice de la lettre chiffrée
+            i = occurence + int(key)  # i correspond à l'indice de la lettre chiffrée
             if i > 25:  # si i dépasse la taille de l'alphabet 
                 i = i % 26  # on calcule le reste de la division et on la stocke dans i
-            texte_chiffre += alphabet[i]  # on ajoute a la variable texte_chiffre la lettre avec l'indice décalé
-    return texte_chiffre
+            text_global += alphabet[i]  # on ajoute a la variable texte_chiffre la lettre avec l'indice décalé
+    print(text_global)
+    return text_global
 
 
 def dechiffrement_cesar(texte, key, alphabet):
-    texte_dechiffre = ''
+    global text_global
+    text_global = ''
     for lettre in texte:
         if lettre == " ":
-            texte_dechiffre += " "
+            text_global += " "
         else:
             occurence = alphabet.find(lettre)  # stocke l'occurence des lettres dans le texte
-            i = occurence - key  # i correspond à l'indice de la lettre chiffrée
+            i = occurence - int(key)  # i correspond à l'indice de la lettre chiffrée
             if i > 25:  # si i dépasse la taille de l'alphabet 
                 i = i % 26  # on calcule le reste de la division et on la stocke dans i
-            texte_dechiffre += alphabet[i]  # on ajoute a la variable texte_chiffre la lettre avec l'indice décalé
-    return texte_dechiffre
+            text_global += alphabet[i]  # on ajoute a la variable texte_chiffre la lettre avec l'indice décalé
+    print(text_global)
+    return text_global
 
 
 """ Chiffre de Vigenère """
@@ -91,6 +101,7 @@ def dechiffrement_cesar(texte, key, alphabet):
 
 
 def chiffrement_vigenere(message, cle, alphabet, supprimer_espaces=True):
+    global text_global
     if supprimer_espaces:
         message = ''.join(message.split()) # Supprime les espaces dans le message
 
@@ -103,19 +114,23 @@ def chiffrement_vigenere(message, cle, alphabet, supprimer_espaces=True):
             tableau[i].append(alphabet[position])
 
     # Initialiser le texte chiffré
-    chiffre = ""
+    text_global = ""
 
     # Chiffrer le message
     for i in range(len(message)):
+        if message[i] == " ":
+            continue
         lettre_message = message[i]
-        position_lettre = alphabet.index(lettre_message.upper())
+        position_lettre = alphabet.index(lettre_message)
         lettre_cle = cle[i % len(cle)]
-        position_cle = alphabet.index(lettre_cle.upper())
-        chiffre += tableau[position_cle][position_lettre]
+        position_cle = alphabet.index(lettre_cle.lower())
+        text_global += tableau[position_cle][position_lettre]
 
-    return chiffre
+    print(text_global)
+    return text_global
 
 def dechiffrement_vigenere(chiffre, key, alphabet, supprimer_espaces=True):
+    global text_global
     if supprimer_espaces:
         chiffre = ''.join(chiffre.split()) # Supprime les espaces dans le message chiffré
 
@@ -128,59 +143,87 @@ def dechiffrement_vigenere(chiffre, key, alphabet, supprimer_espaces=True):
             tableau[i].append(alphabet[position])
 
     # Initialiser le texte déchiffré
-    message = ""
+    text_global = ""
 
     # Déchiffrer le message
     for i in range(len(chiffre)):
+        if chiffre[i] == " ":
+            continue
         lettre_chiffre = chiffre[i]
-        position_cle = alphabet.index(cle[i % len(key)].upper())
+        position_cle = alphabet.index(key[i % len(key)])
         for j in range(len(alphabet)):
-            if tableau[position_cle][j] == lettre_chiffre.upper():
-                message += alphabet[j]
+            if tableau[position_cle][j] == lettre_chiffre.lower():
+                text_global += alphabet[j]
 
-    return message
+    print(text_global)
+    return text_global
 
 
 """Scytale"""
 
+
+def supprimer_caracteres_speciaux(texte): # fonction pour enlever les caractères spéciaux du texte
+    return re.sub('[^A-Za-z0-9]+', '', texte) #supprimer tout sauf A-Z a-z et 0-9
+
+
+def crypte_texte(texte, nb_colonnes, enlever_espaces=False, enlever_caracteres_speciaux=False): # fonction pour crypter un texte avec une scytale
+    if enlever_espaces:
+        texte = texte.replace(" ", "")
+    if enlever_caracteres_speciaux:
+        texte = supprimer_caracteres_speciaux(texte)
+    nb_rangees = (len(texte) + nb_colonnes - 1) // nb_colonnes #calcul nbr rangées pour stocker pour stocker le texte
+    espaces_vides = nb_rangees * nb_colonnes - len(texte) #calcul nbr espaces vides à la fin du texte pour remplir la dernière rangée et les ajoute
+    texte += ' ' * espaces_vides
+    texte_crypte = ''
+    for i in range(nb_colonnes): #parcourt chaque colonne de la scytale
+        for j in range(nb_rangees): #parcourt chaque rangée de la scytale
+            texte_crypte += texte[j * nb_colonnes + i] #Calcule l'index du caractère à ajouter à la chaîne cryptée
+    return texte_crypte
+
+
 """substitution monoalphabetique générale"""
 
 
-def substitution_cle(alphabet):  # fonction qui permets de générer une clé de substitution aléatoire
+def substitution_cle(alphabet,fichier):  # fonction qui permets de générer une clé de substitution aléatoire
+    global cle_global
     substitution_key=list(alphabet)  # crée une copie de la liste d'origine pour servir de clé de substitution
     random.shuffle(substitution_key)  # mélange la liste pour obtenir une clé aléatoire
-    res = ""  # créé une chaîne vide pour stocker la clé de substitution
+    cle_global = ""  # créé une chaîne vide pour stocker la clé de substitution
     for char in substitution_key:  # parcourt chaque caractère dans la clé de substitution
-        res += char  # ajoute le caractère à la chaîne de résultat
-    return res  # renvoie la clé de substitution sous forme de chaîne de caractères
+        cle_global += char  # ajoute le caractère à la chaîne de résultat
+    encrypt(charger_fichier(fichier), cle_global)
+    return cle_global  # renvoie la clé de substitution sous forme de chaîne de caractères
 
 
 def encrypt(lignes, substitution_key):  # fonction qui permets de crypter le message d'origine
-    encrypted_message = ""  # variable vide ou sera stocker le message crypté
+    global text_global
+    text_global = ""  # variable vide ou sera stocker le message crypté
     for char in lignes:  # on parcourt tout les caractères du message d'origine
         if char.lower() in alphabet:  # si le caractére fait partit de l'alphabet et si il est en minuscule
             index = alphabet.index(char.lower())  # récupère l'index du caractère dans la liste alphabet
             if char.isupper():   # si le caractére est en majuscule
-                encrypted_message += substitution_key[index%len(substitution_key)].upper()  # ajoute la lettre de substitution correspondante en majuscule
+                text_global += substitution_key[index%len(substitution_key)].upper()  # ajoute la lettre de substitution correspondante en majuscule
             else:  # sinon, le caractère est en minuscule
-                encrypted_message += substitution_key[index%len(substitution_key)]  # ajoute la lettre de substitution correspondante en minuscule
+                text_global += substitution_key[index%len(substitution_key)]  # ajoute la lettre de substitution correspondante en minuscule
         else:  # si le caractère n'est pas alphabétique,
-            encrypted_message += char  # ajoute le caractère original tel quel
-    return encrypted_message  # renvoie le message chiffré
+            text_global += char  # ajoute le caractère original tel quel
+    print(text_global)
+    return text_global  # renvoie le message chiffré
 
 
-def decrypt(lignes, clef):
-    decrypted_message = ""  # initialise une chaîne vide pour stocker le message déchiffré
-    for char in lignes:  # parcourt chaque caractère dans le message chiffré
+def decrypt(message, clef):
+    text_global = ""  # initialise une chaîne vide pour stocker le message déchiffré
+    for char in message:  # parcourt chaque caractère dans le message chiffré
         if char.lower() in clef:  # vérifie si le caractère est alphabétique (en minuscule) et dans la clé
             index = clef.index(char.lower())  # récupère l'index du caractère dans la clé de substitution
             if char.isupper():  # si le caractère est en majuscule,
-                decrypted_message += alphabet[index].upper()  # ajoute la lettre d'origine correspondante en majuscule                                                  
+                text_global += alphabet[index].upper()  # ajoute la lettre d'origine correspondante en majuscule                                                  
             else:  # sinon, le caractère est en minuscule
-                decrypted_message += alphabet[index]  # ajoute la lettre d'origine correspondante en minuscule
+                text_global += alphabet[index]  # ajoute la lettre d'origine correspondante en minuscule
         else:  # si le caractère n'est pas alphabétique ou n'est pas dans la clé de substitution,
-            decrypted_message += char  # ajoute le caractère original tel quel
-    return decrypted_message  # renvoie le message déchiffré
+            text_global += char  # ajoute le caractère original tel quel
+    print(text_global)
+    return text_global  # renvoie le message déchiffré
 
 # - - - - - - -
 # Cryptanalyse
@@ -210,11 +253,12 @@ def casser_cesar(texte_dechiffre):
 # ----- Code de César -----
 
 alphabet = "abcdefghijklmnopqrstuvwxyz"
+text_global = ""
 
 # ----- Substitution -----
 
 
-clef = substitution_cle(alphabet)
+clef = substitution_cle(alphabet,"test_crypto.txt")
 
 # ----- Scytale -----
 
@@ -229,19 +273,24 @@ clef = substitution_cle(alphabet)
 # Boutons de chiffrements
 # -----------------------
 
-chiffre_cesar = tk.Button(root, text= "Chiffrement César", command= chiffrement_cesar(chargement,cle,alphabet))
+chiffre_cesar = tk.Button(root, text= "Chiffrement César", command= lambda:chiffrement_cesar(text_global, cle.get(), alphabet))
 chiffre_cesar.grid(row= 2, column=0)
-dechiffre_cesar = tk.Button(root, text= "Déchiffrement César", command= dechiffrement_cesar)
+dechiffre_cesar = tk.Button(root, text= "Déchiffrement César", command= lambda:dechiffrement_cesar(text_global, cle.get(), alphabet))
 dechiffre_cesar.grid(row= 3, column= 0)
 
-c_vigenere = tk.Button(root, text="Vigenère", command= chiffrement_vigenere)
+c_vigenere = tk.Button(root, text= "Vigenère", command= lambda:chiffrement_vigenere(text_global, cle.get(), alphabet))
 c_vigenere.grid(row= 2, column= 1)
-d_vigenere = tk.Button(root, text= "Déchiffrement Vigenère", command= dechiffrement_vigenere)
+d_vigenere = tk.Button(root, text= "Déchiffrement Vigenère", command= lambda:dechiffrement_vigenere(text_global, cle.get(), alphabet))
 d_vigenere.grid(row= 3, column= 1)
 
-charge = tk.Button(root, text="Charger un fichier", command= charger_fichier(chargement))
+substi = tk.Button(root, text= "Chiffrement Subsititution", command= lambda:encrypt(text_global, substitution_cle(alphabet,"test_crypto.txt") ))
+substi.grid(row= 2,column=2)
+substi_decrypt = tk.Button(root, text="Déchiffrement substitution", command= lambda:decrypt(text_global, cle_global))
+substi_decrypt.grid(row= 3, column= 2)
+charge = tk.Button(root, text= "Charger un fichier", command= lambda:charger_fichier(chargement.get()))
 charge.grid(row= 0, column= 0)
 
-
+bouton_sauvegarder = tk.Button(root,text= "Sauvegarder le texte", command = lambda:sauvegarde(chargement.get(), text_global))
+bouton_sauvegarder.grid(row=0, column=2)
 
 root.mainloop()
