@@ -89,6 +89,10 @@ def dechiffrement_cesar(texte, key, alphabet):
 # réutiliser fonction chiffrement du code de césar
 # on utilise toujours le même déclage dans le tableau du chiffre de Vigenère 
 
+#Méthode de cryptage par subtitution polyalphabétique 
+#La table de de vigenère créée en décalant chaque lettre vers la droite d'une position dans la ligne suivante, jusqu'à ce que l'alphabet complet soit écrit.
+#Ainsi chaque ligne contient une permutation complète de l'alphabet.
+#Nous avons rajouté une fonction qui propose à l'utilisateur de supprimer les espaces.
 
 def chiffrement_vigenere(message, key, alphabet, supprimer_espaces=True):
     if supprimer_espaces:
